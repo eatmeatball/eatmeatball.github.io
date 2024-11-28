@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+<link rel="preconnect" href="https://fonts.font.im" crossorigin>
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.font.im/css?family=HarmonyOS_Regular:300,300italic,400,400italic,700,700italic%7CJetBrains+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha256-5eIC48iZUHmSlSUz9XtjRyK2mzQkHScZY1WdMaoz74E=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"eatmeatball.github.io","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.21.1","exturl":false,"sidebar":{"position":"right","width_expanded":320,"width_dual_column":240,"display":"always","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":true,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":true,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="把一个react项目打包发布到了githubpage上，结果加载速度异常的慢，同比hexo生成的博客项目，加载速度尚可，打开network分析，两者差距较大， react项目的js文件将近1m，但是react的首屏出了一个nav和一段文字描述，其实并没有什么东西。而hexo项目本身文字较多，但js文件累加不足100k。导致react项目在带宽较低的情况下体验极差（我的腾讯云也只有1mbps理论上也">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="react_包优化">
+<meta property="og:url" content="https://eatmeatball.github.io/2020/02/11/coding/react/web_react_%E5%8C%85%E4%BC%98%E5%8C%96/index.html">
+<meta property="og:site_name" content="abandon">
+<meta property="og:description" content="把一个react项目打包发布到了githubpage上，结果加载速度异常的慢，同比hexo生成的博客项目，加载速度尚可，打开network分析，两者差距较大， react项目的js文件将近1m，但是react的首屏出了一个nav和一段文字描述，其实并没有什么东西。而hexo项目本身文字较多，但js文件累加不足100k。导致react项目在带宽较低的情况下体验极差（我的腾讯云也只有1mbps理论上也">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://eatmeatball.github.io/images/2020/%E6%9C%AA%E5%91%BD%E5%90%8D1581421863.png">
+<meta property="og:image" content="https://eatmeatball.github.io/images/2020/%E6%9C%AA%E5%91%BD%E5%90%8D1581421895.png">
+<meta property="article:published_time" content="2020-02-11T09:33:51.000Z">
+<meta property="article:modified_time" content="2024-11-28T14:46:52.610Z">
+<meta property="article:author" content="饼干">
+<meta property="article:tag" content="js">
+<meta property="article:tag" content="web">
+<meta property="article:tag" content="php">
+<meta property="article:tag" content="lazyload">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://eatmeatball.github.io/images/2020/%E6%9C%AA%E5%91%BD%E5%90%8D1581421863.png">
+
+
+<link rel="canonical" href="https://eatmeatball.github.io/2020/02/11/coding/react/web_react_%E5%8C%85%E4%BC%98%E5%8C%96/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://eatmeatball.github.io/2020/02/11/coding/react/web_react_%E5%8C%85%E4%BC%98%E5%8C%96/","path":"2020/02/11/coding/react/web_react_包优化/","title":"react_包优化"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>react_包优化 | abandon</title>
+  
+
+
+
+
+
+
+
+
+<link rel="preconnect" href="https://s1.hdslb.com/" />
+<link rel="stylesheet" href="//s1.hdslb.com/bfs/static/jinkela/long/font/regular.css" media="all" onload="this.media='all'" />
+<link rel="stylesheet" href="//s1.hdslb.com/bfs/static/jinkela/long/font/medium.css" media="all" onload="this.media='all'" />
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">abandon</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">39</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">11</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">183</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%BC%95%E5%85%A5%E6%8E%A2%E7%B4%A2"><span class="nav-number">1.</span> <span class="nav-text">文件引入探索</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%87%92%E5%8A%A0%E8%BD%BD%E6%8E%A2%E7%B4%A2"><span class="nav-number">2.</span> <span class="nav-text">懒加载探索</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="饼干"
+      src="/images/theme/wd.gif">
+  <p class="site-author-name" itemprop="name">饼干</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">183</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/eatmeatball" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;eatmeatball" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://github.com/eatmeatball" title="https:&#x2F;&#x2F;github.com&#x2F;eatmeatball" rel="noopener" target="_blank">MyGithub</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://eatmeatball.github.io/2020/02/11/coding/react/web_react_%E5%8C%85%E4%BC%98%E5%8C%96/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/theme/wd.gif">
+      <meta itemprop="name" content="饼干">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="abandon">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="react_包优化 | abandon">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          react_包优化
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-02-11 17:33:51" itemprop="dateCreated datePublished" datetime="2020-02-11T17:33:51+08:00">2020-02-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-11-28 22:46:52" itemprop="dateModified" datetime="2024-11-28T22:46:52+08:00">2024-11-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/other/" itemprop="url" rel="index"><span itemprop="name">other</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>把一个react项目打包发布到了githubpage上，结果加载速度异常的慢，同比hexo生成的博客项目，加载速度尚可，打开network分析，两者差距较大， react项目的js文件将近1m，但是react的首屏出了一个nav和一段文字描述，其实并没有什么东西。而hexo项目本身文字较多，但js文件累加不足100k。导致react项目在带宽较低的情况下体验极差（我的腾讯云也只有1mbps理论上也需要将近10s才能加载完成）。因为引入库有限，所以对库文件进行分步引入分析。</p>
+<p>react项目引入了 react本身 + ant 库 + echarts 库 + 其他</p>
+<p>其中ant + echarts 占比 80%</p>
+<p>react清单</p>
+<ul>
+<li>react 40kb +</li>
+<li>ant 245kb +</li>
+<li>react.qr 6kb</li>
+<li>echarts 272 （不引用地图资源）</li>
+<li>echarts chinamap world map 320 kb -&gt; main.js</li>
+<li>业务产生main.js &lt; 3kb</li>
+</ul>
+<p><em>内容较多展开查看</em></p>
+<span id="more"></span>
+<p><em>通过懒加载可以实现这个我已经知道，现在是探究一下到底是什么东西导致懒加载可以生效呢？</em></p>
+<h1 id="文件引入探索">文件引入探索</h1>
+<p>首先有两个js文件 ， 其中一个加入<code>console.log(1111)</code>但不被任何文件import 第二个文件加入<code>console.log(2222)</code>同时被引入，结果如下，222很明显在构建后的文件，111却不存在 <img data-src="/images/2020/未命名1581421863.png" alt="222存在" /></p>
+<figure>
+<img data-src="/images/2020/未命名1581421895.png" alt="111不存在" /><figcaption aria-hidden="true">111不存在</figcaption>
+</figure>
+<p>在这提一下为什么做这个测试，这个结果有的人可能不做就能想到，但是我过去可能被我经历的一些优化方式所干扰，所以导致希望测一下。我所说的干扰场景就是比如php的部分静态检测工具可以针对单文件检测，单文件扫描，php的某些框架可以对单文件进行优化。就拿js一些语法库扩展库来说一样。php的部分框架是可以在安装依赖后构建缓存文件，这些缓存文件就是优化后的php代码，将一部分带有注解类的文件转为高效并且是真正运行的php代码，还有一些xml,yaml的转换，都是单文件转换。所以采用这种方式的可以给工具的开发者带来不用关心引用路径的问题。但是单页面打包并不是这样，他类似于传统文件的构建，或者c的编译，转换器会从入口文件开始对所有从入口文件。</p>
+<p>举个单线思考的例子</p>
+<p>开发php的时候或者仅仅是开发基于http的网络请求时大多数开发考虑的是单线逻辑，就是另个同级文件不会对我所开发的业务产生影响（比较片面，如果是发布订阅模式的话，许多统计的订阅者会有先后顺序，也会有一定干扰）。如果有人要访问一个基于php-fpm运行下的php代码，那么他的过程是<code>入口-&gt;引导/框架基础处理/中间件处理-&gt;控制器-&gt;业务逻辑1-&gt;-&gt;业务逻辑2-&gt;-&gt;业务逻辑3</code>,当然这条路是服务端提供的规则，前端传入规则（参数）来走通的。非这条路线中的文件是不会被访问和加载的。</p>
+<p>类比来讲。web端的项目更多是引入了但是没有被调用。（如引入了一个ui框架但是你只使用了button组件）</p>
+<p>这个打包过程类似一个树的遍历，从入口文件开始，import就是指针。通过这种方式就可以所有引入的文件进行编译。</p>
+<h1 id="懒加载探索">懒加载探索</h1>
+<p>懒加载/延迟加载的本质是将目的资源的通行证/目录先进行存储，之后通过通行证/目录调用。实现上也种类也有多种，如服务端数据的懒加载可以先将类型和id作为变量存储，如果需要使用这个对象则通过事先存储的类型和id进行转换，也可以构建闭包，使用时将闭包展开即刻。第二种也就是react所说的高阶组件（这种方式在php框架大多作为功能的延迟加载存在）。下面附上一段react延迟加载的手动实现</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; <span class="title class_">Component</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">Loadable</span> = (<span class="params">&#123;</span></span><br><span class="line"><span class="params">  loader,</span></span><br><span class="line"><span class="params">  loading: Loading</span></span><br><span class="line"><span class="params">&#125;</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">class</span> <span class="title class_">LoadableComponent</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Component</span> &#123;</span><br><span class="line">    state = &#123;</span><br><span class="line">      <span class="title class_">LoadedComponent</span>: <span class="literal">null</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">componentDidMount</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="title function_">loader</span>()</span><br><span class="line">        .<span class="title function_">then</span>(<span class="function"><span class="params">resp</span> =&gt;</span> &#123;</span><br><span class="line">          <span class="variable language_">this</span>.<span class="title function_">setState</span>(&#123;</span><br><span class="line">            <span class="title class_">LoadedComponent</span>: resp.<span class="property">default</span></span><br><span class="line">          &#125;)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">render</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="keyword">const</span> &#123;</span><br><span class="line">        <span class="title class_">LoadedComponent</span></span><br><span class="line">      &#125; = <span class="variable language_">this</span>.<span class="property">state</span></span><br><span class="line">      <span class="keyword">return</span> (</span><br><span class="line">        <span class="title class_">LoadedComponent</span></span><br><span class="line">        ?</span><br><span class="line">        <span class="language-xml"><span class="tag">&lt;<span class="name">LoadedComponent</span> /&gt;</span></span></span><br><span class="line">        :</span><br><span class="line">        <span class="language-xml"><span class="tag">&lt;<span class="name">Loading</span> /&gt;</span></span></span><br><span class="line">      )</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;  </span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">Loadable</span></span><br></pre></td></tr></table></figure>
+<p>代码逻辑是传入一个延迟加载的闭包loader<code>()=&gt;import('./About')</code>和一个loading(就是一个loading显示的组件) 只用调用这个组件的时候才会真正的去破怪掉loader真正去执行<code>import('./About')</code></p>
+<p>但是<sub>核心内容并没有探究到</sub>~~~~~~~~~~~~~这知识代码的逻辑的懒加载，仅仅是懒加载完全可能是业务逻辑的懒加载，完全不代表文件的懒加载，更不代表主文件减少</p>
+<p>其实这个也比较号理解，就是切割点的查找。 a(b(c(d(()=&gt;{f})))) 就比如上述调用，当我语法解析器或其他分析工具分析到一个闭包中的引用时，我就可以对其进行分割。实现文件上的剪切，打到不可告人的咪咪</p>
+<p>皮一下很开心</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>饼干
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://eatmeatball.github.io/2020/02/11/coding/react/web_react_%E5%8C%85%E4%BC%98%E5%8C%96/" title="react_包优化">https://eatmeatball.github.io/2020/02/11/coding/react/web_react_包优化/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/js/" rel="tag"><i class="fa fa-tag"></i> js</a>
+              <a href="/tags/web/" rel="tag"><i class="fa fa-tag"></i> web</a>
+              <a href="/tags/php/" rel="tag"><i class="fa fa-tag"></i> php</a>
+              <a href="/tags/lazyload/" rel="tag"><i class="fa fa-tag"></i> lazyload</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/02/07/coding/web_%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E5%B7%A5%E5%85%B7%E4%BA%86%E8%A7%A3/" rel="prev" title="数据可视化工具了解">
+                  <i class="fa fa-angle-left"></i> 数据可视化工具了解
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/02/13/coding/react/web_react-route_react-route-dom/" rel="next" title="react-router/react-router-dom二级目录写法">
+                  react-router/react-router-dom二级目录写法 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2017 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">饼干</span>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/eatmeatball" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  
+  <script class="next-config" data-name="pdf" type="application/json">{"object_url":{"url":"https://cdnjs.cloudflare.com/ajax/libs/pdfobject/2.3.0/pdfobject.min.js","integrity":"sha256-JJZNsid68vnh3/zyj0lY9BN5ynxVX/12XgOa1TlaYN0="},"url":"/lib/pdf/web/viewer.html"}</script>
+  <script src="/js/third-party/tags/pdf.js"></script>
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"neutral","dark":"dark"},"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.4.0/mermaid.min.js","integrity":"sha256-G8ouPAnw4zzMbnAenHnVz6h9XpKbNdOkrqTh7AadyHs="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"ams","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/quicklink/2.3.0/quicklink.umd.js" integrity="sha256-yvJQOINiH9fWemHn0vCA5lsHWJaHs6/ZmO+1Ft04SvM=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://eatmeatball.github.io/2020/02/11/coding/react/web_react_%E5%8C%85%E4%BC%98%E5%8C%96/"}</script>
+  <script src="/js/third-party/quicklink.js"></script>
+
+</body>
+</html>

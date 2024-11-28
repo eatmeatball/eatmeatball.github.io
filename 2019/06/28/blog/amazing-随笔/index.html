@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+<link rel="preconnect" href="https://fonts.font.im" crossorigin>
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.font.im/css?family=HarmonyOS_Regular:300,300italic,400,400italic,700,700italic%7CJetBrains+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha256-5eIC48iZUHmSlSUz9XtjRyK2mzQkHScZY1WdMaoz74E=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"eatmeatball.github.io","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.21.1","exturl":false,"sidebar":{"position":"right","width_expanded":320,"width_dual_column":240,"display":"always","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":true,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":true,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="关于douyin接口数据爬取工具总结 2020-03-17  选取http抓包工具 选取android模拟器 android 安装工具 动作模拟驱动组合 数据分析  方法传递子组件 2020-01-31 分布式和任务分配杂谈 2020-03-08 http与websocket端口共享 2019-07-15 webpack有感 2019-06-29 强类型的鸭子类型 2019-07-14 面向对">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="随笔合集">
+<meta property="og:url" content="https://eatmeatball.github.io/2019/06/28/blog/amazing-%E9%9A%8F%E7%AC%94/index.html">
+<meta property="og:site_name" content="abandon">
+<meta property="og:description" content="关于douyin接口数据爬取工具总结 2020-03-17  选取http抓包工具 选取android模拟器 android 安装工具 动作模拟驱动组合 数据分析  方法传递子组件 2020-01-31 分布式和任务分配杂谈 2020-03-08 http与websocket端口共享 2019-07-15 webpack有感 2019-06-29 强类型的鸭子类型 2019-07-14 面向对">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://eatmeatball.github.io/images/%E9%B8%AD%E5%AD%90%E7%B1%BB%E5%9E%8Bjfif.jfif">
+<meta property="article:published_time" content="2019-06-28T07:25:00.000Z">
+<meta property="article:modified_time" content="2024-11-28T14:46:52.606Z">
+<meta property="article:author" content="饼干">
+<meta property="article:tag" content="DayDayUp">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://eatmeatball.github.io/images/%E9%B8%AD%E5%AD%90%E7%B1%BB%E5%9E%8Bjfif.jfif">
+
+
+<link rel="canonical" href="https://eatmeatball.github.io/2019/06/28/blog/amazing-%E9%9A%8F%E7%AC%94/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://eatmeatball.github.io/2019/06/28/blog/amazing-%E9%9A%8F%E7%AC%94/","path":"2019/06/28/blog/amazing-随笔/","title":"随笔合集"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>随笔合集 | abandon</title>
+  
+
+
+
+
+
+
+
+
+<link rel="preconnect" href="https://s1.hdslb.com/" />
+<link rel="stylesheet" href="//s1.hdslb.com/bfs/static/jinkela/long/font/regular.css" media="all" onload="this.media='all'" />
+<link rel="stylesheet" href="//s1.hdslb.com/bfs/static/jinkela/long/font/medium.css" media="all" onload="this.media='all'" />
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">abandon</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">39</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">11</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">183</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B3%E4%BA%8Edouyin%E6%8E%A5%E5%8F%A3%E6%95%B0%E6%8D%AE%E7%88%AC%E5%8F%96%E5%B7%A5%E5%85%B7%E6%80%BB%E7%BB%93-2020-03-17"><span class="nav-number">1.</span> <span class="nav-text">关于douyin接口数据爬取工具总结 2020-03-17</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%89%E5%8F%96http%E6%8A%93%E5%8C%85%E5%B7%A5%E5%85%B7"><span class="nav-number">1.1.</span> <span class="nav-text">选取http抓包工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%89%E5%8F%96android%E6%A8%A1%E6%8B%9F%E5%99%A8"><span class="nav-number">1.2.</span> <span class="nav-text">选取android模拟器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#android-%E5%AE%89%E8%A3%85%E5%B7%A5%E5%85%B7"><span class="nav-number">1.3.</span> <span class="nav-text">android 安装工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A8%E4%BD%9C%E6%A8%A1%E6%8B%9F%E9%A9%B1%E5%8A%A8%E7%BB%84%E5%90%88"><span class="nav-number">1.4.</span> <span class="nav-text">动作模拟驱动组合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90"><span class="nav-number">1.5.</span> <span class="nav-text">数据分析</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%BC%A0%E9%80%92%E5%AD%90%E7%BB%84%E4%BB%B6-2020-01-31"><span class="nav-number">2.</span> <span class="nav-text">方法传递子组件 2020-01-31</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E5%92%8C%E4%BB%BB%E5%8A%A1%E5%88%86%E9%85%8D%E6%9D%82%E8%B0%88-2020-03-08"><span class="nav-number">3.</span> <span class="nav-text">分布式和任务分配杂谈 2020-03-08</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#http%E4%B8%8Ewebsocket%E7%AB%AF%E5%8F%A3%E5%85%B1%E4%BA%AB-2019-07-15"><span class="nav-number">4.</span> <span class="nav-text">http与websocket端口共享 2019-07-15</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#webpack%E6%9C%89%E6%84%9F-2019-06-29"><span class="nav-number">5.</span> <span class="nav-text">webpack有感 2019-06-29</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BC%BA%E7%B1%BB%E5%9E%8B%E7%9A%84%E9%B8%AD%E5%AD%90%E7%B1%BB%E5%9E%8B-2019-07-14"><span class="nav-number">6.</span> <span class="nav-text">强类型的鸭子类型 2019-07-14</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E6%9D%82%E8%B0%88-2019-06-29"><span class="nav-number">7.</span> <span class="nav-text">面向对象杂谈 2019-06-29</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B5%B7%E5%88%9D%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E6%98%AF%E4%B8%93%E6%8C%87%E5%9C%A8%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E4%B8%AD%E9%87%87%E7%94%A8%E5%B0%81%E8%A3%85%E7%BB%A7%E6%89%BF%E5%A4%9A%E6%80%81%E7%AD%89%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95"><span class="nav-number">7.1.</span> <span class="nav-text">起初，“面向对象”是专指在程序设计中采用封装、继承、多态等设计方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%86%E5%BD%A2%E7%9A%84%E5%A4%AA%E9%98%B3%E5%92%8C%E5%9C%86%E5%BD%A2%E7%9A%84%E7%9C%BC%E7%9D%9B%E6%9C%89%E4%BB%80%E4%B9%88%E5%85%B3%E7%B3%BB%E6%B8%B8%E6%88%8F%E8%B6%85%E7%BA%A7%E7%8E%9B%E4%B8%BD%E5%A5%A5%E4%B8%AD%E5%B1%B1%E5%92%8C%E4%BA%91%E7%9A%84%E5%85%B6%E5%AE%9E%E6%98%AF%E9%A2%9C%E8%89%B2%E4%B8%8D%E4%B8%80%E6%A0%B7%E7%9A%84%E5%9B%BE%E5%BD%A2%E4%BB%96%E4%BB%AC%E5%8F%88%E6%98%AF%E4%BB%80%E4%B9%88%E5%85%B3%E7%B3%BB"><span class="nav-number">7.2.</span> <span class="nav-text">圆形的太阳和圆形的眼睛有什么关系，游戏超级玛丽奥中山和云的其实是颜色不一样的图形他们又是什么关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%BC%BA%E7%82%B9%E4%B8%8D%E5%8C%85%E6%8B%AC-%E8%BF%90%E8%A1%8C%E9%80%9F%E5%BA%A6%E6%85%A2"><span class="nav-number">7.3.</span> <span class="nav-text">面向对象的缺点不包括 ‘运行速度慢’</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E9%9D%9E%E6%95%99%E6%9D%A1"><span class="nav-number">7.4.</span> <span class="nav-text">设计非教条</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%BA%E6%8C%AA%E6%B4%BB%E6%A0%91%E6%8C%AA%E6%AD%BB"><span class="nav-number">7.5.</span> <span class="nav-text">人挪活，树挪死</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%8E%E6%95%B0%E6%8D%AE%E7%BB%91%E5%AE%9A%E7%9C%8B%E7%8E%B0%E4%BB%A3%E5%BA%93%E7%9A%84%E6%9C%AC%E8%B4%A8-2019-06-28"><span class="nav-number">8.</span> <span class="nav-text">从数据绑定看现代库的本质 2019-06-28</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A-%E8%82%A4%E6%B5%85%E7%9A%84%E4%BE%8B%E5%AD%90"><span class="nav-number">8.1.</span> <span class="nav-text">双向绑定 （肤浅的例子）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ioc-%E7%9A%84%E5%A4%9A%E7%A7%8D%E5%AE%9E%E7%8E%B0%E9%80%94%E5%BE%84-php%E7%89%88%E6%9C%AC"><span class="nav-number">8.2.</span> <span class="nav-text">ioc 的多种实现途径 （php版本）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9E%84%E5%BB%BA%E5%BB%B6%E8%BF%9F%E5%8A%A0%E8%BD%BD"><span class="nav-number">8.3.</span> <span class="nav-text">构建延迟加载</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%86%E8%A7%A3spring-2018-12-18"><span class="nav-number">9.</span> <span class="nav-text">了解spring 2018-12-18</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E5%8F%8A%E5%90%AF%E5%8A%A8"><span class="nav-number">9.1.</span> <span class="nav-text">安装及启动</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#code-sex-2018-11-04"><span class="nav-number">10.</span> <span class="nav-text">code sex 2018-11-04</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="饼干"
+      src="/images/theme/wd.gif">
+  <p class="site-author-name" itemprop="name">饼干</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">183</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/eatmeatball" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;eatmeatball" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://github.com/eatmeatball" title="https:&#x2F;&#x2F;github.com&#x2F;eatmeatball" rel="noopener" target="_blank">MyGithub</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://eatmeatball.github.io/2019/06/28/blog/amazing-%E9%9A%8F%E7%AC%94/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/theme/wd.gif">
+      <meta itemprop="name" content="饼干">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="abandon">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="随笔合集 | abandon">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          随笔合集
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-06-28 15:25:00" itemprop="dateCreated datePublished" datetime="2019-06-28T15:25:00+08:00">2019-06-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-11-28 22:46:52" itemprop="dateModified" datetime="2024-11-28T22:46:52+08:00">2024-11-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%9A%8F%E7%AC%94/" itemprop="url" rel="index"><span itemprop="name">随笔</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><!-- TOC -->
+<ul>
+<li><a href="#关于douyin接口数据爬取工具总结-2020-03-17">关于douyin接口数据爬取工具总结 2020-03-17</a>
+<ul>
+<li><a href="#选取http抓包工具">选取http抓包工具</a></li>
+<li><a href="#选取android模拟器">选取android模拟器</a></li>
+<li><a href="#android-安装工具">android 安装工具</a></li>
+<li><a href="#动作模拟驱动组合">动作模拟驱动组合</a></li>
+<li><a href="#数据分析">数据分析</a></li>
+</ul></li>
+<li><a href="#方法传递子组件-2020-01-31">方法传递子组件 2020-01-31</a></li>
+<li><a href="#分布式和任务分配杂谈-2020-03-08">分布式和任务分配杂谈 2020-03-08</a></li>
+<li><a href="#http与websocket端口共享-2019-07-15">http与websocket端口共享 2019-07-15</a></li>
+<li><a href="#webpack有感-2019-06-29">webpack有感 2019-06-29</a></li>
+<li><a href="#强类型的鸭子类型-2019-07-14">强类型的鸭子类型 2019-07-14</a></li>
+<li><a href="#面向对象杂谈-2019-06-29">面向对象杂谈 2019-06-29</a>
+<ul>
+<li><a href="#起初面向对象是专指在程序设计中采用封装继承多态等设计方法">起初，“面向对象”是专指在程序设计中采用封装、继承、多态等设计方法</a></li>
+<li><a href="#圆形的太阳和圆形的眼睛有什么关系游戏超级玛丽奥中山和云的其实是颜色不一样的图形他们又是什么关系">圆形的太阳和圆形的眼睛有什么关系，游戏超级玛丽奥中山和云的其实是颜色不一样的图形他们又是什么关系</a></li>
+<li><a href="#面向对象的缺点不包括-运行速度慢">面向对象的缺点不包括 ‘运行速度慢’</a></li>
+<li><a href="#设计非教条">设计非教条</a></li>
+<li><a href="#人挪活树挪死">人挪活，树挪死</a></li>
+</ul></li>
+<li><a href="#从数据绑定看现代库的本质-2019-06-28">从数据绑定看现代库的本质 2019-06-28</a>
+<ul>
+<li><a href="#双向绑定-肤浅的例子">双向绑定 （肤浅的例子）</a></li>
+<li><a href="#ioc-的多种实现途径-php版本">ioc 的多种实现途径 （php版本）</a></li>
+<li><a href="#构建延迟加载">构建延迟加载</a></li>
+</ul></li>
+<li><a href="#了解spring-2018-12-18">了解spring 2018-12-18</a>
+<ul>
+<li><a href="#安装及启动">安装及启动</a></li>
+</ul></li>
+<li><a href="#code-sex-2018-11-04">code sex 2018-11-04</a></li>
+</ul>
+<!-- /TOC -->
+<span id="more"></span>
+<h1 id="关于douyin接口数据爬取工具总结-2020-03-17">关于douyin接口数据爬取工具总结 2020-03-17</h1>
+<p><em>*为我最终使用的工具</em></p>
+<h2 id="选取http抓包工具">选取http抓包工具</h2>
+<ul>
+<li>fiddler</li>
+<li>mitmproxy</li>
+<li>anyproxy *</li>
+</ul>
+<h2 id="选取android模拟器">选取android模拟器</h2>
+<ul>
+<li>逍遥模拟器 *</li>
+</ul>
+<h2 id="android-安装工具">android 安装工具</h2>
+<ul>
+<li>xposed *
+<ul>
+<li>jesttrustme (劫持后可继续使用https) *</li>
+</ul></li>
+</ul>
+<h2 id="动作模拟驱动组合">动作模拟驱动组合</h2>
+<ul>
+<li>php+adb 模拟操作</li>
+</ul>
+<h2 id="数据分析">数据分析</h2>
+<ul>
+<li>直接 grep anyproxy log 数据</li>
+</ul>
+<hr />
+<h1 id="方法传递子组件-2020-01-31">方法传递子组件 2020-01-31</h1>
+<p><code>从实现上来看类似发布订阅，但从思路上来说并不完全一样，设计上侧重点有些许不同</code></p>
+<p>今天看React中传递方法给子组件，因为传递的是方法，父组件控制逻辑，子组件控制调用，潜意识认为这是一种不可靠，不易维护的方法，但是react是推荐这种方式的，于是进一步思考了一下。 发现每一步的职责都很清晰并没有混乱的发生</p>
+<p>这个流程可以这样划分<code>子组件</code>包括子组件本身功能+触发，同时提供一个明确的绑定方式，并且明确回调中会传递的值， <code>父组件</code>提供父组件相关操作，开发只需要对两个组件进行绑定即刻 如下php代码，下面绑定了一个匿名函数，模块的拼接者只需要按需转换即刻</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 这里是对子组件的提交事件进行了绑定，当子组件进行提交操作的时候触发，会传递子组件预定义好的数据，这里进行处理转化，然后传入$f中</span></span><br><span class="line"><span class="variable">$s</span>-&gt;<span class="title function_ invoke__">submitBind</span>(function (<span class="variable">$value</span>) <span class="keyword">use</span> ($<span class="title">f</span>) &#123;</span><br><span class="line">    $<span class="title">name</span> = $<span class="title">value</span>;</span><br><span class="line">    <span class="variable">$f</span>-&gt;<span class="title function_ invoke__">push</span>([<span class="string">&#x27;name&#x27;</span> =&gt; <span class="variable">$name</span>]);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>与发布订阅，有些类似但又不同</p>
+<p>下面是一段php父模块传递方法</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Son</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="variable">$value</span> = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="variable">$callback</span> = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">input</span>(<span class="params"><span class="variable">$value</span></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="variable language_">$this</span>-&gt;value = <span class="variable">$value</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">submit</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        (<span class="variable language_">$this</span>-&gt;callback)(<span class="variable language_">$this</span>-&gt;value);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">submitBind</span>(<span class="params"><span class="variable">$callback</span></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="variable language_">$this</span>-&gt;callback = <span class="variable">$callback</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Father</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$state</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="variable language_">$this</span>-&gt;state = [</span><br><span class="line">            [<span class="string">&#x27;name&#x27;</span> =&gt; <span class="string">&#x27;xxx&#x27;</span>]</span><br><span class="line">        ];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">push</span>(<span class="params"><span class="variable">$name</span></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="variable language_">$this</span>-&gt;state[] = <span class="variable">$name</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">upload</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span>  <span class="variable language_">$this</span>-&gt;state;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">$f</span> = <span class="keyword">new</span> <span class="title class_">Father</span>();</span><br><span class="line"><span class="variable">$s</span> = <span class="keyword">new</span> <span class="title class_">Son</span>();</span><br><span class="line"><span class="variable">$s</span>-&gt;<span class="title function_ invoke__">submitBind</span>(function (<span class="variable">$value</span>) <span class="keyword">use</span> ($<span class="title">f</span>) &#123;</span><br><span class="line">    $<span class="title">name</span> = $<span class="title">value</span>;</span><br><span class="line">    <span class="variable">$f</span>-&gt;<span class="title function_ invoke__">push</span>([<span class="string">&#x27;name&#x27;</span> =&gt; <span class="variable">$name</span>]);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="variable">$s</span>-&gt;<span class="title function_ invoke__">input</span>(<span class="string">&#x27;小张&#x27;</span>);</span><br><span class="line"><span class="variable">$s</span>-&gt;<span class="title function_ invoke__">submit</span>();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="title function_ invoke__">var_dump</span>(<span class="variable">$f</span>-&gt;<span class="title function_ invoke__">upload</span>());</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<hr />
+<h1 id="分布式和任务分配杂谈-2020-03-08">分布式和任务分配杂谈 2020-03-08</h1>
+<p>今天想给自己机子装个 RabbitMQ （不过感觉不在公司了，其实这个装的意义不是很大，个人写代码redis就足够了），然后想起分布式爬虫这个东西，因为之前听到其他人开发的时候用到了redis，于是就先想后查，觉得呢这个分布式爬虫的实现是基于redis的队列实现的，程序爬取一页后将将要爬取的东西塞到队列中，然后其他机器上的爬虫从队列中取任务继续进行其他任务。查询了一下原理也是这样的。于是就回想了一下过去接触的任务分配的方式吧。总的来说就是主动取，和主动分发着两种吧。</p>
+<p>第一种就类似学校老师收到卷子后，找几个高年级的学生改卷子，然后每个人改的卷子是老师分给他的。比如ng的负载均衡。</p>
+<p>第二种呢也是老师让高年级学生批改卷子，但是不一样的呢是老师只收卷子不负责具体哪个人改哪个卷子，所有的卷子摞起来，然后改卷子的人自己过来取，取的数量也是改卷子的人自己定。这种呢就像除了队列中任务一样，多跑几个脚本就是多个学生。日常开发这种用法比较多。而且比较简单，毕竟完全依靠队列的特性实现，不需要纠结任务的分配。</p>
+<p>当然也有一些逗逼的方式。就是给脚本传参数然后也不要队列然后通过原始数据顺序取模进行分配。不过比较憨憨的是，一单想要加人或者减少人，就要告诉所有的任务，你取数据的方式要变啦，不然就会和别人取到同一个数据或者有数据跳过了。属于一口气吃成胖子的思路蛤蛤。</p>
+<hr />
+<h1 id="http与websocket端口共享-2019-07-15">http与websocket端口共享 2019-07-15</h1>
+<p>Q:为什么 Socket.IO 可以让 WebSockets 和 HTTP 监听在同一端口</p>
+<p>A:websocket, http 都是基于tcp实现的。websocket 的连接请求都是用的http。websocket和http是在一个层面上的东西</p>
+<!--more-->
+<p>微信的web客户端使用的是http keep-alive 进行数据的接受蛮有意思的。</p>
+<p>日后填坑。</p>
+<h1 id="webpack有感-2019-06-29">webpack有感 2019-06-29</h1>
+<p>明天就要回乡了，抓紧看了下书（其实是被子都寄走了，晚上睡觉不舒服） <!--more--></p>
+<p>从B站上看了一下webpack相关的教程，快看完的时候突然发现了另个角度和后端工具对标的地方（以前只是对标了一下composer和npm，这次比较细致）</p>
+<table>
+<thead>
+<tr class="header">
+<th>node</th>
+<th>php</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>前端原生撸代码（这个阶段还没有用到node）</td>
+<td>原生撸代码</td>
+</tr>
+<tr class="even">
+<td>使用node+npm</td>
+<td>使用composer</td>
+</tr>
+<tr class="odd">
+<td>npm script</td>
+<td>composer script</td>
+</tr>
+<tr class="even">
+<td>使用了 node 的模块加载</td>
+<td>使用由composer实现的psr4自动加载</td>
+</tr>
+<tr class="odd">
+<td>以下为模块和另一侧弱对标</td>
+<td>以下为模块和另一侧弱对标</td>
+</tr>
+<tr class="even">
+<td>使用webpack</td>
+<td>使用了ioc模块</td>
+</tr>
+<tr class="odd">
+<td>使用了sacc-load</td>
+<td>使用了request</td>
+</tr>
+<tr class="even">
+<td>使用了axias</td>
+<td>使用guzzlehttp</td>
+</tr>
+<tr class="odd">
+<td>使用babel</td>
+<td>使用doctrine/annotations</td>
+</tr>
+</tbody>
+</table>
+<p>经过上诉模块的组合知乎前端的代码变得风格不同于原生的html开发，同时右侧的php代码也变得不同于原生的php代码，左侧隔离了原生网络请求，大量原生html，以及对css语法，js语法的一定改变，右侧则是更改由直接写代码变为控制器代码，$_REQUEST变成了request类，curl变成了封装好的httpclient，语法上也加强了注释对代码的影响，增加更多的功能，如果右侧加上了doctrine/orm 则更进一步对数据库操作进行了隔离，至此编码层面上既有非原生php语法的补充又有新增模块的全局函数和对底层的高度封装，从这一角度来看，虽然前端的编码改变也好，辅助的工具也好，和后端技术的代一定成都上也大同小异，不同的地方也就是给人的感受把，作为一个phper从原生phper-&gt;使用composer-&gt;使用框架因为处于渐进所以对于代码的写法感受较为温和，而前端代码由于直接从原生看到了使用webpack的写法，所以感觉跨度比较大。但是仔细想一想其实都是经过长时间迭代对工具的高度封装所得。尤其是一些同级语法分析器（用php的实现的对php语法的分析器和用js实现的对js语法的分析器）更是让工具以及库的使用更加巧妙（这里指的是对语言本身语法的改变）。</p>
+<p>不过语法的改变倒是挺有意思的事情，（php的语法分析库大多被引来制作静态检测）,scss,styl,twig,smarty(模板大多用的正则其实不应该算在这里面，但是从使用角度上来说又是一种语法的扩充)， <code>“计算机科学领域的任何问题都可以通过增加一个间接的中间层来解决” “Any problem in computer science can be solved by anther layer of indirection.”</code></p>
+<h1 id="强类型的鸭子类型-2019-07-14">强类型的鸭子类型 2019-07-14</h1>
+<p><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E9%B8%AD%E5%AD%90%E7%B1%BB%E5%9E%8B">鸭子类型</a></p>
+<p><code>当看到一只鸟走起来像鸭子、游泳起来像鸭子、叫起来也像鸭子，那么这只鸟就可以被称为鸭子。</code></p>
+<!--more-->
+<p>这是一个比较有意思的话题，而且go中接口的特性是golang支持鸭子类型的基础，因为go时强类型语言所以在这里和php做个比照</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">run</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">run</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">canListen</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">listen</span>(<span class="params"></span>)</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">man</span> <span class="keyword">implements</span> <span class="title">canListen</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">listen</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">echo</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Dvd</span> <span class="keyword">implements</span> <span class="title">canListen</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">listen</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;1&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>A和B都事先了run方法，并且可以放入同一数组中循环调用 man和Dvd都实现了listen并且结成了canListen，但因为canListen没有对返回值做限定所以导致如果你希望让对应的对象给你返回一个字符串，可能并不行</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="comment">// WhatIsCar as</span></span><br><span class="line"><span class="keyword">type</span> WhatIsCar <span class="keyword">interface</span> &#123;</span><br><span class="line">	run()</span><br><span class="line">	stop()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Car as</span></span><br><span class="line"><span class="keyword">type</span> Car <span class="keyword">struct</span> &#123;</span><br><span class="line">	name <span class="type">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ACar as</span></span><br><span class="line"><span class="keyword">type</span> ACar <span class="keyword">struct</span> &#123;</span><br><span class="line">	Car</span><br><span class="line">	fly <span class="type">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// CCar as</span></span><br><span class="line"><span class="keyword">type</span> CCar <span class="keyword">struct</span> &#123;</span><br><span class="line">	fly <span class="type">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(car Car)</span></span> run() &#123;</span><br><span class="line">	<span class="built_in">println</span>(<span class="string">&quot;Car can run&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(car Car)</span></span> stop() &#123;</span><br><span class="line">	<span class="built_in">println</span>(<span class="string">&quot;Car can run&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(car ACar)</span></span> run() &#123;</span><br><span class="line">	<span class="built_in">println</span>(<span class="string">&quot;ACar can run&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(car CCar)</span></span> run() &#123;</span><br><span class="line">	<span class="built_in">println</span>(<span class="string">&quot;CCar can run&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 当看到一只鸟走起来像鸭子、游泳起来像鸭子、叫起来也像鸭子，那么这只鸟就可以被称为鸭子。</span></span><br><span class="line"><span class="comment">// 因为 go 是静态语言本身具备静态检测，所以鸭子类型带来的负面影响较小</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">structTest</span><span class="params">()</span></span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">var</span> car WhatIsCar</span><br><span class="line">	<span class="comment">// car 实现了 whatiscar 的所以方法所以可以使用</span></span><br><span class="line">	car = <span class="built_in">new</span>(Car)</span><br><span class="line"></span><br><span class="line">	car.run()</span><br><span class="line"></span><br><span class="line">	<span class="comment">// ACar 继承了 car ,并且重写了run方法 所以也可以使用</span></span><br><span class="line">	car = <span class="built_in">new</span>(ACar)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// CCar 既没有继承 car ，也没有自行实现 whatiscar 的所有方法，没有实现接口，所以不能使用，故注释</span></span><br><span class="line">	<span class="comment">// car = new(CCar)</span></span><br><span class="line"></span><br><span class="line">	car.run()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这也从一下方面反应了鸭子类型更多的时设计的一种而没有没有明确的好坏之说，相比于不严谨的弱类型代码，强类型的更严谨的约束了鸭子类型，使用上来说也相对安全一点。并且在OO的世界中抽象的角度不同可能得到的结论也不同。 从可能存在的缺陷角度上来说如果使用了鸭子类型，那么尽可能使用鸭子的特征，尽量避免使用非鸭子的特征，比如你让所有的鸭子进了马戏团，但是你又要所有的鸭子去开汽车，但是鸭子的接口没有开汽车这个规定，那么那些不会开车的鸭子就会让你车翻得很严重咯</p>
+<p><img data-src="/images/鸭子类型jfif.jfif" /></p>
+<h1 id="面向对象杂谈-2019-06-29">面向对象杂谈 2019-06-29</h1>
+<h2 id="起初面向对象是专指在程序设计中采用封装继承多态等设计方法">起初，“面向对象”是专指在程序设计中采用封装、继承、多态等设计方法</h2>
+<p>看下面一段php代码 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">eat</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&#x27;eat&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">eatFood</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="title function_ invoke__">eat</span>();</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">eatFood2</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="title function_ invoke__">eat</span>();</span><br><span class="line">    <span class="title function_ invoke__">eat</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> <!--more--> 是不是和面向对象的继承封装多态差不多？虽然代码看着有点丑陋</p>
+<p>再举例一个 oop 里面的一个设计模式<code>观察者</code>,php中有<code>declare(ticks=1);</code>这样一种用法，（这个写法的孪生兄弟pcntl_signal_dispatch()不是这次的重点）,它表示每执行多少语句去执行一下<code>register_tick_function</code>注册的方法或检测<code>pcntl_signal</code>信号量，是不是很适合用来实现观察者，但观察者的实现多大都是主动通知更改的时候触发了observer，而非被监听者观察到状态变化，因为从实现上来说，每执行一句就要观察一下状态是不是有点费劲呀，之后就演变成了发布订阅，因为服务端的业务代码大多数时候并没有实现真正的观察者。但是真正意义的观察者也是存在的，从实现角度上来说我们常用的守护进程大多都可以理解为观察者的实现，起进程，监控进程，发现挂掉就重启。</p>
+<h2 id="圆形的太阳和圆形的眼睛有什么关系游戏超级玛丽奥中山和云的其实是颜色不一样的图形他们又是什么关系">圆形的太阳和圆形的眼睛有什么关系，游戏超级玛丽奥中山和云的其实是颜色不一样的图形他们又是什么关系</h2>
+<p>许多人可能会说圆形是太阳的一个属性，山的型状和云的型状也是他们的属性，那太阳和眼睛存在关系码？云和山又有什么关系呢？很显然在这种地方组合的表现要更加明显。</p>
+<p>所以我个人认为面向对象并非一个完美的理论，而实一个阶段性的由开发人员长期开发得出来的经验总结</p>
+<h2 id="面向对象的缺点不包括-运行速度慢">面向对象的缺点不包括 ‘运行速度慢’</h2>
+<p>网上有人说面向对象的缺点里面包括了<code>运行速度慢</code>，这个观点简直就是放屁，因为面向对象的逻辑可以等价的转换为非面向对象的写法，所以无论是开发自己转换也好，还是语言底层自己转换也好，相同逻辑下效率是一样的，（个人反对因为现在计算机算力高，所以可以忽略某些问题，但面向对象本身是没有性能问题，即使有那也是编译器或解析器处理的问题，或编写语法转换器，所以这个缺点是不存在的，面向对象的缺点应该更多的观察它设计上的缺陷）。</p>
+<h2 id="设计非教条">设计非教条</h2>
+<p>如果不能优雅的实现设计模式，那么或者时机不到（没有合适的api，或者没有合适的库的支持（例如反射类推进了ioc,php词法分析推进了php编程上使用注解）），要么可能就是过于追求本本主义，走了弯路</p>
+<h2 id="人挪活树挪死">人挪活，树挪死</h2>
+<h1 id="从数据绑定看现代库的本质-2019-06-28">从数据绑定看现代库的本质 2019-06-28</h1>
+<p><code>这边文章目前没有想清楚如何表达只是作为一份草稿写来展示的</code></p>
+<p>编码中没有什么是加一层解决不了的，如果有就再加一层 <!--more--> 前端双向绑定的功能之一是由<code>Object.defineProperty</code>实现的 (可以并非唯一)</p>
+<p>ioc 可以利用反射</p>
+<p>闭包可以用来延迟加载</p>
+<p>现在我们作为一个无法使用例如 vue 或者使用 lavarl 这样的框架或者库的时候我们应该如何实现类似的功能</p>
+<h2 id="双向绑定-肤浅的例子">双向绑定 （肤浅的例子）</h2>
+<p>监听所有的事件，在此基础上实现 set 和 get 的接口 从而实现事件的监听</p>
+<h2 id="ioc-的多种实现途径-php版本">ioc 的多种实现途径 （php版本）</h2>
+<p><code>控制反转（Inversion of Control，缩写为IoC），是面向对象编程中的一种设计原则，可以用来减低计算机代码之间的耦合度。其中最常见的方式叫做依赖注入（Dependency Injection，简称DI），还有一种方式叫“依赖查找”（Dependency Lookup）。通过控制反转，对象在被创建的时候，由一个调控系统内所有对象的外界实体将其所依赖的对象的引用传递给它。也可以说，依赖被注入到对象中</code></p>
+<ul>
+<li>反射类分析类整体</li>
+<li>编写由php写成的语法分析器解析代码，分析出依赖的对象</li>
+</ul>
+<p>控制反转容器的依赖查找即分析代码的依赖，并解决这些依赖，竟然如此其实即使没有反射api的存在，只要可以对代码进行分析就可以把依赖解决。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="title class_">App</span>\<span class="title class_">action</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cat</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">eat</span>(<span class="params">Food <span class="variable">$food</span></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>在php 框架之中大多框架的延迟加载是通过闭包实现的，下面是php延迟加载的一个简版php代码 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">buildLazyClass</span>(<span class="params"><span class="variable">$className</span>,<span class="variable">$params</span></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) <span class="keyword">use</span> (<span class="params"><span class="variable">$className</span>,<span class="variable">$params</span></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">new</span> <span class="variable">$className</span>(<span class="variable">$params</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="variable">$lazyFood</span> = <span class="title function_ invoke__">buildLazyClass</span>(<span class="string">&#x27;Food&#x27;</span>)</span><br><span class="line"><span class="keyword">if</span>(<span class="title function_ invoke__">is_callback</span>(<span class="variable">$lazyFood</span>))&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable">$lazyFood</span>();</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable">$lazyFood</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="构建延迟加载">构建延迟加载</h2>
+<p>如果一个语言没有实现闭包呢？ 那就只能自己想办法实现了 现在第一步用反射类或者语法分析器分解目标类，分析出依赖的对象，第二部是构建延迟加载类，例如下面 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LazyFood</span> </span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="variable">$isBuild</span> = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="variable">$food</span> = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_ invoke__">getFood</span>()</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="variable language_">$this</span>-&gt;isBuild) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="variable">$food</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="variable language_">$this</span>-&gt;food = <span class="keyword">new</span> <span class="title class_">Food</span>()</span><br><span class="line">            <span class="variable language_">$this</span>-&gt;build = <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">return</span> <span class="variable language_">$this</span>-&gt;food;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> 这样就存在相同的业务编码，实现了相同的功能，相比之下如果使用了编译代码这一步，就可以想办法将执行代码中对依赖的分析解除，从而达到更高的效率</p>
+<hr />
+<h1 id="了解spring-2018-12-18">了解spring 2018-12-18</h1>
+<p>今天安装了一下 spring cloud 并且运行得到了'hello world'，从第一个'hellow world'，到最中的spring cloud的开发过程和实现原理吧</p>
+<p><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-boot/docs/2.1.1.RELEASE/reference/htmlsingle/#boot-documentation">官网文档</a><br />
+先说一种（可以忽略这个） <a target="_blank" rel="noopener" href="https://repo.spring.io/release/org/springframework/boot/spring-boot-cli/2.1.1.RELEASE/spring-boot-cli-2.1.1.RELEASE-bin.zip">spring 下载路径</a>, 下载后使用目录bin下的spring.bat,可以运行简单的‘hello world’，由于没有采用任何依赖管理工具，就跳过这个详细讲解</p>
+<h2 id="安装及启动">安装及启动</h2>
+<blockquote>
+<p>使用linux 和 xos 的童鞋自己去官网文档看下安装教程哦，这里稍微加入点 windows 的安装过程</p>
+</blockquote>
+<p>使用 windows 的同学可以先安装一个 <a target="_blank" rel="noopener" href="https://chocolatey.org/install">chocolatey</a>，这个工具是 windows 上的包管理工具，类似于 linux 上的 apt-get、yum ，使用 choco 也可以安装一些例如 notepad++ 这样的软件，感兴趣的童鞋可以自己试一下</p>
+<p>使用 choco 安装 maven <figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">choco install maven</span><br></pre></td></tr></table></figure></p>
+<p>首先创建一个 pom.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0&quot;</span> <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">	<span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.example<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>myproject<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>0.0.1-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">&lt;!-- Inherit defaults from Spring Boot --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1.1.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">&lt;!-- Add typical dependencies for a web application --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">&lt;!-- Package as an executable jar --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这个文件给我的第一感觉有点类似于 php 的 composer （php 的包管理工具），略有不同的是 maven 引入到了本地仓库，而不是当前路径下创建一个文件存放，这个和 php 包管理就略有不同 ，在 windows 下 maven 引入的文件会默认导入到用户目录下的 .m2 文件夹下的，其中这个 .m2 的路径配置是 Maven 安装目录下的 config 中的 setting.xml。</p>
+<p>创建一个 java 文件，位于项目根目录下 src/main/java/Example.java，接下来可以执行一下命令，然后访问 localhost:8080, 至此第一个 spring 程序就跑起来了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 查看</span><br><span class="line">mvn dependency:tree</span><br><span class="line"># 第一种运行方式</span><br><span class="line">mvn package</span><br><span class="line">java -jar target/myproject-0.0.1-SNAPSHOT.jar</span><br><span class="line"># 第二种运行方式</span><br><span class="line">mvn spring-boot:run</span><br></pre></td></tr></table></figure>
+<hr />
+<h1 id="code-sex-2018-11-04">code sex 2018-11-04</h1>
+<blockquote>
+<p>我们来谈程序员对性的追求。<br />
+- 可靠性(relibility)<br />
+- 可读性(readability)<br />
+- 可维护性(maintainability)<br />
+- 可测试性(testability)<br />
+- 可扩展性(extensibility)<br />
+- 可移植性(portability)<br />
+- 可伸缩性(scalbility)<br />
+- 易用性(usability)<br />
+- 可用性(avaliability)<br />
+- 可重用性(reusability)<br />
+- 互操作性(interoperability)<br />
+- 可管理性(manageability)<br />
+- 可支持性(supportability)<br />
+- 一致性(consistency)<br />
+- 安全性(security)<br />
+- 性能(performance)<br />
+- 稳定性(stability)<br />
+- 精确性(accuracy)<br />
+- 可客制性(customizability)<br />
+- 魯棒性(robustness)</p>
+</blockquote>
+<p>from https://www.zhihu.com/question/29264868/answer/44134766</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>饼干
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://eatmeatball.github.io/2019/06/28/blog/amazing-%E9%9A%8F%E7%AC%94/" title="随笔合集">https://eatmeatball.github.io/2019/06/28/blog/amazing-随笔/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/DayDayUp/" rel="tag"><i class="fa fa-tag"></i> DayDayUp</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/03/19/coding/php/php_018_BitMap/" rel="prev" title="PHP[018]:BitMap">
+                  <i class="fa fa-angle-left"></i> PHP[018]:BitMap
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/07/01/coding/php/php_000_link/" rel="next" title="PHP[000]:书本杂志">
+                  PHP[000]:书本杂志 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2017 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">饼干</span>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/eatmeatball" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  
+  <script class="next-config" data-name="pdf" type="application/json">{"object_url":{"url":"https://cdnjs.cloudflare.com/ajax/libs/pdfobject/2.3.0/pdfobject.min.js","integrity":"sha256-JJZNsid68vnh3/zyj0lY9BN5ynxVX/12XgOa1TlaYN0="},"url":"/lib/pdf/web/viewer.html"}</script>
+  <script src="/js/third-party/tags/pdf.js"></script>
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"neutral","dark":"dark"},"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.4.0/mermaid.min.js","integrity":"sha256-G8ouPAnw4zzMbnAenHnVz6h9XpKbNdOkrqTh7AadyHs="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"ams","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/quicklink/2.3.0/quicklink.umd.js" integrity="sha256-yvJQOINiH9fWemHn0vCA5lsHWJaHs6/ZmO+1Ft04SvM=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://eatmeatball.github.io/2019/06/28/blog/amazing-%E9%9A%8F%E7%AC%94/"}</script>
+  <script src="/js/third-party/quicklink.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+<link rel="preconnect" href="https://fonts.font.im" crossorigin>
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.font.im/css?family=HarmonyOS_Regular:300,300italic,400,400italic,700,700italic%7CJetBrains+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha256-5eIC48iZUHmSlSUz9XtjRyK2mzQkHScZY1WdMaoz74E=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"eatmeatball.github.io","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.21.1","exturl":false,"sidebar":{"position":"right","width_expanded":320,"width_dual_column":240,"display":"always","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":true,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":true,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="go环境设置  go get 代理设置 go mod go env 关于下载库和下载软件  基础 包推荐 练习 闭包练习 gin gorm  gorm 分表写法  model 开发 cgo 取苹果">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="how to use golang">
+<meta property="og:url" content="https://eatmeatball.github.io/2021/01/27/amazing_tool/h2u_golang/index.html">
+<meta property="og:site_name" content="abandon">
+<meta property="og:description" content="go环境设置  go get 代理设置 go mod go env 关于下载库和下载软件  基础 包推荐 练习 闭包练习 gin gorm  gorm 分表写法  model 开发 cgo 取苹果">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-01-27T02:02:08.000Z">
+<meta property="article:modified_time" content="2024-11-28T14:46:52.606Z">
+<meta property="article:author" content="饼干">
+<meta property="article:tag" content="other">
+<meta property="article:tag" content="blog">
+<meta property="article:tag" content="go">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://eatmeatball.github.io/2021/01/27/amazing_tool/h2u_golang/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://eatmeatball.github.io/2021/01/27/amazing_tool/h2u_golang/","path":"2021/01/27/amazing_tool/h2u_golang/","title":"how to use golang"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>how to use golang | abandon</title>
+  
+
+
+
+
+
+
+
+
+<link rel="preconnect" href="https://s1.hdslb.com/" />
+<link rel="stylesheet" href="//s1.hdslb.com/bfs/static/jinkela/long/font/regular.css" media="all" onload="this.media='all'" />
+<link rel="stylesheet" href="//s1.hdslb.com/bfs/static/jinkela/long/font/medium.css" media="all" onload="this.media='all'" />
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">abandon</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">39</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">11</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">183</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#go%E7%8E%AF%E5%A2%83%E8%AE%BE%E7%BD%AE"><span class="nav-number">1.</span> <span class="nav-text">go环境设置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#go-get-%E4%BB%A3%E7%90%86%E8%AE%BE%E7%BD%AE"><span class="nav-number">1.1.</span> <span class="nav-text">go get 代理设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#go-mod"><span class="nav-number">1.2.</span> <span class="nav-text">go mod</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#go-env"><span class="nav-number">1.3.</span> <span class="nav-text">go env</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E4%B8%8B%E8%BD%BD%E5%BA%93%E5%92%8C%E4%B8%8B%E8%BD%BD%E8%BD%AF%E4%BB%B6"><span class="nav-number">1.4.</span> <span class="nav-text">关于下载库和下载软件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80"><span class="nav-number">2.</span> <span class="nav-text">基础</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8C%85%E6%8E%A8%E8%8D%90"><span class="nav-number">3.</span> <span class="nav-text">包推荐</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BB%83%E4%B9%A0"><span class="nav-number">4.</span> <span class="nav-text">练习</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%97%AD%E5%8C%85%E7%BB%83%E4%B9%A0"><span class="nav-number">5.</span> <span class="nav-text">闭包练习</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#gin"><span class="nav-number">6.</span> <span class="nav-text">gin</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#gorm"><span class="nav-number">7.</span> <span class="nav-text">gorm</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#gorm-%E5%88%86%E8%A1%A8%E5%86%99%E6%B3%95"><span class="nav-number">7.1.</span> <span class="nav-text">gorm 分表写法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#model-%E5%BC%80%E5%8F%91"><span class="nav-number">8.</span> <span class="nav-text">model 开发</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cgo"><span class="nav-number">9.</span> <span class="nav-text">cgo</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%96%E8%8B%B9%E6%9E%9C"><span class="nav-number">10.</span> <span class="nav-text">取苹果</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="饼干"
+      src="/images/theme/wd.gif">
+  <p class="site-author-name" itemprop="name">饼干</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">183</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/eatmeatball" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;eatmeatball" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://github.com/eatmeatball" title="https:&#x2F;&#x2F;github.com&#x2F;eatmeatball" rel="noopener" target="_blank">MyGithub</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://eatmeatball.github.io/2021/01/27/amazing_tool/h2u_golang/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/theme/wd.gif">
+      <meta itemprop="name" content="饼干">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="abandon">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="how to use golang | abandon">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          how to use golang
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-01-27 10:02:08" itemprop="dateCreated datePublished" datetime="2021-01-27T10:02:08+08:00">2021-01-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-11-28 22:46:52" itemprop="dateModified" datetime="2024-11-28T22:46:52+08:00">2024-11-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/HowToUse/" itemprop="url" rel="index"><span itemprop="name">HowToUse</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><!-- TOC -->
+<ul>
+<li><a href="#go环境设置">go环境设置</a>
+<ul>
+<li><a href="#go-get-代理设置">go get 代理设置</a></li>
+<li><a href="#go-mod">go mod</a></li>
+<li><a href="#go-env">go env</a></li>
+<li><a href="#关于下载库和下载软件">关于下载库和下载软件</a></li>
+</ul></li>
+<li><a href="#基础">基础</a></li>
+<li><a href="#包推荐">包推荐</a></li>
+<li><a href="#练习">练习</a></li>
+<li><a href="#闭包练习">闭包练习</a></li>
+<li><a href="#gin">gin</a></li>
+<li><a href="#gorm">gorm</a>
+<ul>
+<li><a href="#gorm-分表写法">gorm 分表写法</a></li>
+</ul></li>
+<li><a href="#model-开发">model 开发</a></li>
+<li><a href="#cgo">cgo</a></li>
+<li><a href="#取苹果">取苹果</a></li>
+</ul>
+<!-- /TOC -->
+<span id="more"></span>
+<h1 id="go环境设置">go环境设置</h1>
+<h2 id="go-get-代理设置">go get 代理设置</h2>
+<ul>
+<li>对应的shell代理设置，cmd/powershell</li>
+<li>git代理设置</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">set http_proxy=http://127.0.0.1:1081</span><br><span class="line">set https_proxy=http://127.0.0.1:1081</span><br><span class="line">$ENV:http_proxy=&quot;http://127.0.0.1:1081&quot;</span><br><span class="line">$ENV:https_proxy=&quot;http://127.0.0.1:1081&quot;</span><br><span class="line">git config --global http.proxy http://127.0.0.1:1081</span><br><span class="line">git config --global https.proxy http://127.0.0.1:1081</span><br><span class="line">git config --global --unset http.proxy</span><br><span class="line">git config --global --unset https.proxy</span><br></pre></td></tr></table></figure>
+<h2 id="go-mod">go mod</h2>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">go mod download  //下载依赖包</span><br><span class="line">go mod edit  //工具或脚本编辑go.mod</span><br><span class="line">go mod graph  //打印模块依赖图</span><br><span class="line">go mod init  //在当前目录初始化mod</span><br><span class="line">go mod tidy  //拉取缺少的模块，移除不用的模块。</span><br><span class="line">go mod vendor  //将依赖复制到vendor下</span><br><span class="line">go mod verify  //验证依赖是否正确</span><br><span class="line">go mod why  //解释为什么需要依赖</span><br><span class="line">go list -m -json all  //依赖详情</span><br></pre></td></tr></table></figure>
+<p>go mod 练习 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">首先</span><br><span class="line">mkdir go_t &amp;&amp; cd go_t</span><br><span class="line">go mod init app</span><br><span class="line">go get -u github.com/codesenberg/bombardier // 这是一个http压测客户端，</span><br><span class="line">cat go.sum // go.sum 安装了没有用的东西，因为打算全局安装，但是并不想要引入当前项目</span><br><span class="line">go mod tidy // 无效 因为当前目录没有impact 任何go的包</span><br><span class="line">// 创建一个go文件</span><br><span class="line">go mod tidy  </span><br><span class="line">cat go.sum</span><br><span class="line">// 不会影响全局</span><br><span class="line">go install  github.com/codesenberg/bombardier@latest </span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
+<h2 id="go-env">go env</h2>
+<p>go 1.13提供了 go env -w命令来写环境变量 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">go env -w XXX=&quot;XXX&quot;</span><br><span class="line">go env -u XXX</span><br><span class="line"></span><br><span class="line">go env -w GO111MODULE=on</span><br><span class="line">go env -w GOPROXY=https://goproxy.cn,direct</span><br></pre></td></tr></table></figure></p>
+<p>win: <code>用户\AppData\Roaming\go\env</code> linux: <code>/root/.config/go/env</code></p>
+<h2 id="关于下载库和下载软件">关于下载库和下载软件</h2>
+<blockquote>
+<p>以下基于 go 1.17</p>
+</blockquote>
+<p>如果你要下载一个由<code>go</code>编写的的可执行程序，你应该执行 <code>go install xxxx</code>。这会在 <code>GO_PATH/bin/</code> 下安装可执行文件。 如果你要引用第三方库进行代码开发，你可以使用 <code>go get -d</code> （仅下载代码不进行编译）。</p>
+<p>可以认为目前是 go 1.17 还是一个过渡时期，未来 <code>go get</code>应该不再进行编译操作，<code>-d</code> 会演变为默认参数。而 <code>go install</code>则进化为下载可执行软件的专用方法。</p>
+<p>目前 go 1.17 用 go get 还是可以下载+编译的。未来应该是不能这么操作了</p>
+<h1 id="基础">基础</h1>
+<h1 id="包推荐">包推荐</h1>
+<h1 id="练习">练习</h1>
+<h1 id="闭包练习">闭包练习</h1>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main </span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">add</span><span class="params">(x1, x2 <span class="type">int</span>)</span></span> <span class="function"><span class="keyword">func</span><span class="params">(x3 <span class="type">int</span>, x4 <span class="type">int</span>)</span></span> (<span class="type">int</span>, <span class="type">int</span>, <span class="type">int</span>) &#123;</span><br><span class="line">	i := <span class="number">0</span></span><br><span class="line">	<span class="keyword">return</span> <span class="function"><span class="keyword">func</span><span class="params">(x3 <span class="type">int</span>, x4 <span class="type">int</span>)</span></span> (<span class="type">int</span>, <span class="type">int</span>, <span class="type">int</span>) &#123;</span><br><span class="line">		i++</span><br><span class="line">		<span class="keyword">return</span> i, x1 + x2, x3 + x4</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="gin">gin</h1>
+<h1 id="gorm">gorm</h1>
+<h2 id="gorm-分表写法">gorm 分表写法</h2>
+<p>假设 <code>user</code> 按照 <code>uid</code> 分表。 <strong>关键点</strong>：设置<code>db.Table</code>，同时在查询前调用<code>Scopes</code>，因为<code>Scopes</code>传递的是闭包，所以可以编写一个构建闭包的函数进行设置。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">type</span> KUser <span class="keyword">struct</span> &#123;</span><br><span class="line">	ID              <span class="type">uint32</span>    <span class="string">`gorm:&quot;primaryKey;column:id;type:int(10) unsigned;not null&quot;`</span>              <span class="comment">// 用户表自增id</span></span><br><span class="line">	UId             <span class="type">uint64</span>    <span class="string">`gorm:&quot;unique;column:uid;type:bigint(20) unsigned;not null&quot;`</span>              <span class="comment">// 用户中心passId</span></span><br><span class="line">	NickName        <span class="type">string</span>    <span class="string">`gorm:&quot;column:nick_name;type:varchar(255);not null;default:&#x27;&#x27;&quot;`</span>           <span class="comment">// 用户昵称</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(u KUser)</span></span> getSuffixByUid() <span class="type">uint64</span> &#123;</span><br><span class="line">	<span class="keyword">return</span> u.UId % <span class="type">uint64</span>(<span class="number">32</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> kUserRepository <span class="keyword">struct</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> kur *kUserRepository</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">init</span><span class="params">()</span></span> &#123;</span><br><span class="line">	kur = <span class="built_in">new</span>(kUserRepository)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">setGetSuffix</span><span class="params">(suffix <span class="type">int</span>)</span></span> <span class="function"><span class="keyword">func</span><span class="params">(db *gorm.DB)</span></span> *gorm.DB &#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="function"><span class="keyword">func</span><span class="params">(db *gorm.DB)</span></span> *gorm.DB &#123;</span><br><span class="line">		<span class="keyword">return</span> db.Table(<span class="string">&quot;user_&quot;</span> + types.ToString(suffix))</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">setGetSuffixByUid</span><span class="params">(uid <span class="type">int64</span>)</span></span> <span class="function"><span class="keyword">func</span><span class="params">(db *gorm.DB)</span></span> *gorm.DB &#123;</span><br><span class="line">	<span class="keyword">return</span> setGetSuffix(getSuffixByUid(uid))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">getSuffixByUid</span><span class="params">(uid <span class="type">int64</span>)</span></span> <span class="type">int</span> &#123;</span><br><span class="line">	<span class="keyword">return</span> types.ToInt(uid % <span class="number">32</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(kur kUserRepository)</span></span> FindBySuffix(suffix <span class="type">int</span>) []KUser &#123;</span><br><span class="line">	<span class="keyword">var</span> kUsers []KUser</span><br><span class="line">	r := dbPool.GetDB().Scopes(setGetSuffix(suffix)).Find(&amp;kUsers)</span><br><span class="line">	fmt.Println(r.Error)</span><br><span class="line">	<span class="keyword">return</span> kUsers</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">GetKUserRepository</span><span class="params">()</span></span> *kUserRepository &#123;</span><br><span class="line">	<span class="keyword">return</span> kur</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h1 id="model-开发">model 开发</h1>
+<p>go 模块的开发并不复杂，但是其为了兼容老版本，所采取的策略比较有意思。相比与 <code>composer</code>、<code>npm</code> 这种每个包指定版本的做法。go mod 可以在一个项目下依赖同一个库的不同版本的代码。</p>
+<p>首先 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">mkdir hello-go-mod</span><br><span class="line">cd hello-go-mod</span><br><span class="line">git init </span><br><span class="line">go mod init github.com/eatmeatball/hello-go-mod</span><br><span class="line">mkdir hello</span><br><span class="line">cd hello</span><br><span class="line">echo &quot;package hello</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">func Hello() string&#123;</span><br><span class="line">	return &quot;hello&quot;</span><br><span class="line">&#125;&quot; &gt; function.go</span><br><span class="line"></span><br><span class="line">cd ..</span><br><span class="line">git add .</span><br><span class="line">git commit -m &#x27;code a lib for go&#x27;</span><br><span class="line">git push</span><br></pre></td></tr></table></figure></p>
+<p>当推送完成之后你就可以使用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go get -u  github.com/eatmeatball/hello-go-mod</span><br></pre></td></tr></table></figure>
+<p>在其他项目拉取该项目了。默认为<code>v0.0.0</code>。</p>
+<p>接下来就是不一样的地方了。你可以在这个项目上打<code>tag</code>，当<code>tag</code>为 <code>v1.x.x</code>/<code>v0.x.x</code> 拉取是没有任何问题的。</p>
+<p>当你把 <code>tag</code> 打到 <code>v2.x.x</code>。你会发现无法拉取</p>
+<p>拉取代码的时候会出现 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">go get: github.com/eatmeatball/hello@v2.0.1: reading https://goproxy.cn/github.com/eatmeatball/hello/@v/v2.0.1.info: 404 Not Found</span><br><span class="line">        server response: not found: github.com/eatmeatball/hello@v2.0.1: invalid version: module contains a go.mod file, so major version must be compatible: should be v0 or v1, not v2</span><br></pre></td></tr></table></figure></p>
+<p>是不是满脑子充满了问号？</p>
+<p>这里有一篇官方的blog<a target="_blank" rel="noopener" href="https://blog.golang.org/v2-go-modules">v2-go-modules</a>。官网的内容中定义了一个原则 &gt; 如果旧包和新包的导入路径相同，新包必须向后兼容旧的包 对比以下之前用过的包管理，是不是有点不一样？比如 php 的 composer ，里面的高版本都是为了进行破坏性的升级才修改的。升级高版本是不是要修改代码？虽然go中高版本也可以写api破坏性的代码，但是其高于v2的版本通过<code>go get</code>后本地位置是不一样的。所以在go的项目中，你可以在一个项目中同时引入一个库的<code>v1</code>,<code>v2</code>,<code>v3</code>代码进行编译。这里如果你想要发布非<code>v0</code>、<code>v1</code>的版本你需要把<code>go.mod</code>文件修改</p>
+<p>修改前 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">module github.com/eatmeatball/hello-go-mod</span><br><span class="line"></span><br><span class="line">go 1.16</span><br></pre></td></tr></table></figure></p>
+<p>修改后 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">module github.com/eatmeatball/hello-go-mod/v3</span><br><span class="line"></span><br><span class="line">go 1.16</span><br></pre></td></tr></table></figure> 这样，即使你发布的新版本存在破坏性，但是拉取的时候go按照顶级版本划分了目录，就可以使其同时使用高低版本代码</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/rsc/quote/tree/master">https://github.com/rsc/quote/tree/master</a></p>
+</blockquote>
+<p>根据官网的demo你可以一个项目多个目录，也可以一个项目多个分支来控制版本。</p>
+<h1 id="cgo">cgo</h1>
+<blockquote>
+<p>GCC原名为GNU C语言编译器（GNU C Compiler），只能处理C语言。但其很快扩展，变得可处理C++，后来又扩展为能够支持更多编程语言，如Fortran、Pascal、Objective -C、Java、Ada、Go以及各类处理器架构上的汇编语言等，所以改名GNU编译器套件</p>
+</blockquote>
+<p>MinGW-w64下载地址：<a target="_blank" rel="noopener" href="https://sourceforge.net/projects/mingw-w64/files/">https://sourceforge.net/projects/mingw-w64/files/</a></p>
+<p>选择合适的版本</p>
+<ul>
+<li>i686纯32位版供32位win系统使用</li>
+<li>x86_64是64位系统用的版本</li>
+<li>seh结尾是纯64位编译</li>
+<li>sjlj结尾是32 64两种编译，需加-m32或-m64参数</li>
+<li>posix通常用于跨平台，比win32兼容性好一些</li>
+</ul>
+<p>最终下载版本<code>x86_64-posix-sjlj</code></p>
+<p>解压后bin目录加入到环境变量</p>
+<h1 id="取苹果">取苹果</h1>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">	<span class="string">&quot;time&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span>  <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line"></span><br><span class="line">	fmt.Println(<span class="string">&quot;this is a demoC&quot;</span>)</span><br><span class="line"></span><br><span class="line">	plate := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="type">int</span>)</span><br><span class="line">	apple := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="type">int</span>)</span><br><span class="line">	orange := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="type">int</span>)</span><br><span class="line">	<span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">		<span class="keyword">for</span> &#123;</span><br><span class="line">			time.Sleep(time.Second)</span><br><span class="line">			dadPlate := &lt;-plate</span><br><span class="line">			fmt.Println(<span class="string">&quot;盘子可以放入一个水果 dad Plate&quot;</span>, dadPlate)</span><br><span class="line">			apple &lt;- <span class="number">1</span></span><br><span class="line">			fmt.Println(<span class="string">&quot;dad放入一个苹果&quot;</span>)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;()</span><br><span class="line"></span><br><span class="line">	<span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">		<span class="keyword">for</span> &#123;</span><br><span class="line">			time.Sleep(time.Second)</span><br><span class="line">			momPlate := &lt;-plate</span><br><span class="line">			fmt.Println(<span class="string">&quot;盘子可以放入一个水果mom Plate&quot;</span>, momPlate)</span><br><span class="line">			orange &lt;- <span class="number">1</span></span><br><span class="line">			fmt.Println(<span class="string">&quot;mom放入一个橘子&quot;</span>)</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	&#125;()</span><br><span class="line"></span><br><span class="line">	<span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">		<span class="keyword">for</span> &#123;</span><br><span class="line">			time.Sleep(time.Second)</span><br><span class="line">			sonOrange := &lt;-orange</span><br><span class="line">			fmt.Println(<span class="string">&quot;儿子取走一个橘子 sonOrange Plate&quot;</span>, sonOrange)</span><br><span class="line">			plate &lt;- <span class="number">1</span></span><br><span class="line">			fmt.Println(<span class="string">&quot;儿子清空盘子&quot;</span>)</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	&#125;()</span><br><span class="line">	<span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">		<span class="keyword">for</span> &#123;</span><br><span class="line">			time.Sleep(time.Second)</span><br><span class="line">			daughterApple := &lt;-apple</span><br><span class="line">			fmt.Println(<span class="string">&quot;女儿取走一个苹果 daughterApple Plate&quot;</span>, daughterApple)</span><br><span class="line">			plate &lt;- <span class="number">1</span></span><br><span class="line">			fmt.Println(<span class="string">&quot;女儿清空盘子&quot;</span>)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;()</span><br><span class="line">	plate &lt;- <span class="number">1</span></span><br><span class="line">	<span class="keyword">for</span> &#123;</span><br><span class="line">		time.Sleep(time.Second)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>饼干
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://eatmeatball.github.io/2021/01/27/amazing_tool/h2u_golang/" title="how to use golang">https://eatmeatball.github.io/2021/01/27/amazing_tool/h2u_golang/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/other/" rel="tag"><i class="fa fa-tag"></i> other</a>
+              <a href="/tags/blog/" rel="tag"><i class="fa fa-tag"></i> blog</a>
+              <a href="/tags/go/" rel="tag"><i class="fa fa-tag"></i> go</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/01/13/coding/simplec/C_%E5%9F%BA%E7%AE%97%E8%A6%81%E7%B4%A0/" rel="prev" title="基算要素">
+                  <i class="fa fa-angle-left"></i> 基算要素
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/01/28/amazing_tool/h2u_win/" rel="next" title="how to use win">
+                  how to use win <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2017 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">饼干</span>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/eatmeatball" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  
+  <script class="next-config" data-name="pdf" type="application/json">{"object_url":{"url":"https://cdnjs.cloudflare.com/ajax/libs/pdfobject/2.3.0/pdfobject.min.js","integrity":"sha256-JJZNsid68vnh3/zyj0lY9BN5ynxVX/12XgOa1TlaYN0="},"url":"/lib/pdf/web/viewer.html"}</script>
+  <script src="/js/third-party/tags/pdf.js"></script>
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"neutral","dark":"dark"},"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.4.0/mermaid.min.js","integrity":"sha256-G8ouPAnw4zzMbnAenHnVz6h9XpKbNdOkrqTh7AadyHs="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"ams","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/quicklink/2.3.0/quicklink.umd.js" integrity="sha256-yvJQOINiH9fWemHn0vCA5lsHWJaHs6/ZmO+1Ft04SvM=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://eatmeatball.github.io/2021/01/27/amazing_tool/h2u_golang/"}</script>
+  <script src="/js/third-party/quicklink.js"></script>
+
+</body>
+</html>

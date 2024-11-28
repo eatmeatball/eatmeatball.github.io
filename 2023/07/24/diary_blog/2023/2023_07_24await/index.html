@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+<link rel="preconnect" href="https://fonts.font.im" crossorigin>
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.font.im/css?family=HarmonyOS_Regular:300,300italic,400,400italic,700,700italic%7CJetBrains+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha256-5eIC48iZUHmSlSUz9XtjRyK2mzQkHScZY1WdMaoz74E=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"eatmeatball.github.io","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.21.1","exturl":false,"sidebar":{"position":"right","width_expanded":320,"width_dual_column":240,"display":"always","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":true,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":true,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="本次提问涉及了询问用法，追问疑惑，确认掌握～">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="gpt 助我学习之 [js-async&#x2F;await]">
+<meta property="og:url" content="https://eatmeatball.github.io/2023/07/24/diary_blog/2023/2023_07_24await/index.html">
+<meta property="og:site_name" content="abandon">
+<meta property="og:description" content="本次提问涉及了询问用法，追问疑惑，确认掌握～">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-07-24T14:08:56.000Z">
+<meta property="article:modified_time" content="2024-11-28T14:46:52.614Z">
+<meta property="article:author" content="饼干">
+<meta property="article:tag" content="other">
+<meta property="article:tag" content="blog">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://eatmeatball.github.io/2023/07/24/diary_blog/2023/2023_07_24await/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://eatmeatball.github.io/2023/07/24/diary_blog/2023/2023_07_24await/","path":"2023/07/24/diary_blog/2023/2023_07_24await/","title":"gpt 助我学习之 [js-async/await]"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>gpt 助我学习之 [js-async/await] | abandon</title>
+  
+
+
+
+
+
+
+
+
+<link rel="preconnect" href="https://s1.hdslb.com/" />
+<link rel="stylesheet" href="//s1.hdslb.com/bfs/static/jinkela/long/font/regular.css" media="all" onload="this.media='all'" />
+<link rel="stylesheet" href="//s1.hdslb.com/bfs/static/jinkela/long/font/medium.css" media="all" onload="this.media='all'" />
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">abandon</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">39</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">11</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">183</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%A2%E9%97%AE"><span class="nav-number">1.</span> <span class="nav-text">询问</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8F%90%E5%87%BA%E7%96%91%E6%83%91"><span class="nav-number">2.</span> <span class="nav-text">提出疑惑</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A1%AE%E8%AE%A4%E4%BA%86%E8%A7%A3"><span class="nav-number">3.</span> <span class="nav-text">确认了解</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%9B%E4%B8%80%E6%AD%A5%E7%A1%AE%E8%AE%A4%E7%9F%A5%E8%AF%86%E7%82%B9"><span class="nav-number">4.</span> <span class="nav-text">进一步确认知识点</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="饼干"
+      src="/images/theme/wd.gif">
+  <p class="site-author-name" itemprop="name">饼干</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">183</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/eatmeatball" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;eatmeatball" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://github.com/eatmeatball" title="https:&#x2F;&#x2F;github.com&#x2F;eatmeatball" rel="noopener" target="_blank">MyGithub</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://eatmeatball.github.io/2023/07/24/diary_blog/2023/2023_07_24await/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/theme/wd.gif">
+      <meta itemprop="name" content="饼干">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="abandon">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="gpt 助我学习之 [js-async/await] | abandon">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          gpt 助我学习之 [js-async/await]
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-07-24 22:08:56" itemprop="dateCreated datePublished" datetime="2023-07-24T22:08:56+08:00">2023-07-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-11-28 22:46:52" itemprop="dateModified" datetime="2024-11-28T22:46:52+08:00">2024-11-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/other/" itemprop="url" rel="index"><span itemprop="name">other</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>本次提问涉及了询问用法，追问疑惑，确认掌握～</p>
+<span id="more"></span>
+<h1 id="询问">询问</h1>
+<blockquote>
+<p>js sync await 给我讲一下，还是有些迷惑</p>
+</blockquote>
+<p>在 JavaScript 中，我们经常需要处理异步任务，例如从服务器获取数据、向服务器发送数据等。传统的方式是使用回调函数来处理异步任务，这在多层嵌套时会导致回调地狱，代码难以维护和调试。为了解决这个问题，JavaScript 引入了 Promise 和 async/await 两种方式来处理异步任务。</p>
+<p>其中，async/await 是 ES8 中新增的语法糖，可以更简单、直观地处理异步任务。关于 async/await 你可以从以下几点来理解：</p>
+<ul>
+<li>1 async 函数是一个返回 Promise 对象的异步函数，可以使用 await 关键字等待异步操作的结果，在等待的过程中 async 函数会释放 CPU，让其他任务可以执行。</li>
+<li>2 await 关键字只能在 async 函数中使用，可以等待一个 Promise 对象的结果，如果 Promise 对象变为 resolved 状态，则 await 表达式的值为 Promise 返回的结果；如果 Promise 对象变为 rejected 状态，则会抛出错误并被 try-catch 块捕获。</li>
+<li>3 async 函数内部可以有多个 await 表达式，它们之间是顺序执行的，后面的 await 表达式需要等待前面的 await 表达式完成后再执行。</li>
+<li>4使用 async/await 可以将异步代码写成类似同步代码的形式，代码更加易读易懂，也更容易调试和维护。</li>
+</ul>
+<p>下面是一个使用 async/await 处理异步任务的示例：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">getData</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> result1 = <span class="keyword">await</span> <span class="title function_">fetch</span>(<span class="string">&#x27;/api/data1&#x27;</span>); <span class="comment">// 等待获取数据1</span></span><br><span class="line">    <span class="keyword">const</span> result2 = <span class="keyword">await</span> <span class="title function_">fetch</span>(<span class="string">&#x27;/api/data2&#x27;</span>); <span class="comment">// 等待获取数据2</span></span><br><span class="line">    <span class="keyword">return</span> [result1, result2]; <span class="comment">// 返回获取的数据</span></span><br><span class="line">  &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">error</span>(error); <span class="comment">// 捕获错误并输出到控制台</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">getData</span>().<span class="title function_">then</span>(<span class="function"><span class="params">data</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(data); <span class="comment">// 输出获取的数据</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>在上面的例子中，getData 函数使用 async 关键字声明，并在函数内部使用 await 关键字等待异步操作的结果，这里使用了两个 await 表达式分别获取不同的数据。在本示例中，最终返回两个异步操作的结果数组，如果发生异常，将会被 try-catch 块捕获并输出错误信息。最后，我们通过调用 getData () 方法来获取异步数据，并且在返回结果后输出数据到控制台。</p>
+<h1 id="提出疑惑">提出疑惑</h1>
+<blockquote>
+<p>我感觉到很迷惑 await 是为了等待 对应的异步函数，那么为什么要在使用 await 的函数上加 async 呢</p>
+</blockquote>
+<p>非常好的问题！答案是：因为 await 关键字只能在 async 函数中使用。</p>
+<p>使用异步函数获取异步任务的结果时，我们需要将其放置在一个 async 函数内部，然后使用 await 等待异步操作的结果。因此，若想使用 await 关键字，必须将该函数声明为 async 函数。反之，如果没有使用 async 函数，就不能在该函数中使用 await。</p>
+<p>换句话说，只有当一个函数被声明为 async 函数时，该函数才能够包含 await 关键字，这也是 async/await 语法的基本前提。声明函数为 async 是告诉 JS 引擎该函数执行可能会返回 Promise，从而让 JS 引擎在执行该函数时进行特殊的处理。</p>
+<p>需要注意的是，使用 await 来等待异步任务的结果并不一定要在函数内部立即返回 Promise 对象，因为 await 关键字的执行过程与 Promise 链式调用的执行过程类似，也会自动创建并返回 Promise 对象。</p>
+<p>总的来说，async 和 await 是构成 Promise 异步编程风格的语法糖，它们让异步代码更加直观和易读，使得我们可以使用同步风格的代码书写和处理异步操作的代码。</p>
+<h1 id="确认了解">确认了解</h1>
+<blockquote>
+<p>哦哦实际上 async 这个标记并没有对 function 进行改造对吧。我原来的时候认为这个标记会把一个函数变成异步函数执行</p>
+</blockquote>
+<p>你说得很对！事实上，async 关键字并不会直接将一个函数变成异步函数执行。它只是告诉 JavaScript 引擎，该函数内部可能有异步操作，并且在使用 await 关键字时可能需要暂停函数的执行。</p>
+<p>换句话说，async 关键字并没有改造该函数的本质，而是提供了一种更方便的方式来处理异步操作。当 async 函数被调用时，它会返回一个 Promise 对象，并且 async 函数内部的代码在运行时会自动封装为 Promise 对象的 resolve 方法。当在 async 函数内部使用 await 关键字等待异步操作完成后，该函数将会暂停执行，直到异步操作返回结果或抛出错误。</p>
+<p>另外，需要注意的是，在 async 函数内部使用 return 语句返回值时，返回的值会被 Promise.resolve () 包装成一个 Promise 对象，并且该 Promise 对象的值就是 return 语句返回的值。如果 async 函数内部抛出异常，则会被 Promise.reject () 包装成 Promise 对象，并返回给调用者。</p>
+<p>因此，我们可以将 async/await 与 Promise 风格的代码结合使用，以创建更简单、直观的异步编程模型。</p>
+<h1 id="进一步确认知识点">进一步确认知识点</h1>
+<blockquote>
+<p>所以 async 是处理异步操作的表示，而不是创造异步操作的语法</p>
+</blockquote>
+<p>没错，你的理解非常准确。async 是一种处理异步操作的表示，而不是创造异步操作的语法。</p>
+<p>实际上，JavaScript 已经拥有了一些用于处理异步操作的机制，如 setTimeout、XMLHttpRequest 和 fetch 等。这些机制都是基于事件循环 (event loop) 的异步编程模型，并且被广泛应用于各种 JavaScript 应用中。</p>
+<p>然而，这些机制存在一些问题，如回调地狱和代码可读性差等。为了解决这些问题，Promise 和 async/await 作为一种新的异步编程方式被引入，并较快地得到了广泛的应用。</p>
+<p>在这个过程中，async 函数则扮演了处理异步操作的重要角色。它提供了更加直观、易于理解的代码形式，并使得 JavaScript 开发者能够更好地掌握异步编程技术。因此，我们可以将 async 函数看作是 Promise 风格的代码模型的补充，以实现更加灵活和高效的异步编程。</p>
+<hr />
+<p>一次良好的询问</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>饼干
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://eatmeatball.github.io/2023/07/24/diary_blog/2023/2023_07_24await/" title="gpt 助我学习之 [js-async&#x2F;await]">https://eatmeatball.github.io/2023/07/24/diary_blog/2023/2023_07_24await/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/other/" rel="tag"><i class="fa fa-tag"></i> other</a>
+              <a href="/tags/blog/" rel="tag"><i class="fa fa-tag"></i> blog</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/05/03/diary_blog/2023/2023_05_30gzip/" rel="prev" title="时间和空间的完美结合 Gzip/缓存">
+                  <i class="fa fa-angle-left"></i> 时间和空间的完美结合 Gzip/缓存
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/07/24/diary_blog/2023/2023_07_24ldiff/" rel="next" title="PHP、Java、Python、Go 和 Rust 中进行基本开发操作时所需要的命令[对比表格]">
+                  PHP、Java、Python、Go 和 Rust 中进行基本开发操作时所需要的命令[对比表格] <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2017 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">饼干</span>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/eatmeatball" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  
+  <script class="next-config" data-name="pdf" type="application/json">{"object_url":{"url":"https://cdnjs.cloudflare.com/ajax/libs/pdfobject/2.3.0/pdfobject.min.js","integrity":"sha256-JJZNsid68vnh3/zyj0lY9BN5ynxVX/12XgOa1TlaYN0="},"url":"/lib/pdf/web/viewer.html"}</script>
+  <script src="/js/third-party/tags/pdf.js"></script>
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"neutral","dark":"dark"},"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.4.0/mermaid.min.js","integrity":"sha256-G8ouPAnw4zzMbnAenHnVz6h9XpKbNdOkrqTh7AadyHs="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"ams","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/quicklink/2.3.0/quicklink.umd.js" integrity="sha256-yvJQOINiH9fWemHn0vCA5lsHWJaHs6/ZmO+1Ft04SvM=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://eatmeatball.github.io/2023/07/24/diary_blog/2023/2023_07_24await/"}</script>
+  <script src="/js/third-party/quicklink.js"></script>
+
+</body>
+</html>
